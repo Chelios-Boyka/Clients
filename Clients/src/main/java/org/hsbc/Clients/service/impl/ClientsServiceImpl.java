@@ -80,5 +80,16 @@ public class ClientsServiceImpl implements ClientsService {
 
                     }
 
+    @Override
+    public void deleteClient(Long id) {
+        Clients clients = clientsRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new RuntimeException("Client with id: " + id + " not found... wey")
+                );
+
+        clientsRepository.delete(clients);
+    }
+
 
 }

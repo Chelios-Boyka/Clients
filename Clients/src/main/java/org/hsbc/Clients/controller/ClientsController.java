@@ -31,7 +31,7 @@ public class ClientsController {
     /// Deposit client REST API
     @PutMapping("/{id}/deposit")
     public ResponseEntity<ClientsDto> depositClient(@PathVariable Long id,
-                                                Map<String, Double> request) {
+                                                    @RequestBody Map<String, Double> request) {
         Double amount = request.get("amount");
         ClientsDto clientsDto = clientsService.deposit(id, amount);
         return ResponseEntity.ok(clientsDto);
@@ -61,6 +61,14 @@ public class ClientsController {
     public ResponseEntity<List<ClientsDto>> getAllClients(){
         return ResponseEntity.ok(clientsService.getAllClients());
 
+    }
+
+
+    /// Delete client REST API
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<String> deleteClient(@PathVariable Long id){
+        clientsService.deleteClient(id);
+        return ResponseEntity.ok("Client with id: " + id + " was deleted... wey");
     }
 
 }

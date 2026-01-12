@@ -16,4 +16,6 @@ public interface ClientsService {
 
     List<ClientsDto> getAllClients();
 
+    void deleteClient(Long id);
+
 }
