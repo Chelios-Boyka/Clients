@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -19,7 +20,7 @@ public class ClientsController {
         this.clientsService = clientsService;
     }
 
-    //Add Client REST API
+    /// Add Client REST API
     @PostMapping
     public ResponseEntity<ClientsDto> addClient(@RequestBody ClientsDto clientsDto) {
         return new
@@ -27,7 +28,7 @@ public class ClientsController {
                 HttpStatus.CREATED);
     }
 
-    //Deposit client REST API
+    /// Deposit client REST API
     @PutMapping("/{id}/deposit")
     public ResponseEntity<ClientsDto> depositClient(@PathVariable Long id,
                                                 Map<String, Double> request) {
@@ -36,14 +37,14 @@ public class ClientsController {
         return ResponseEntity.ok(clientsDto);
     }
 
-    //Get client REST API
+    /// Get client REST API
     @GetMapping("/{id}")
     public ResponseEntity<ClientsDto> getClient(@PathVariable Long id){
         ClientsDto clientsDto = clientsService.getClient(id);
         return ResponseEntity.ok(clientsDto);
     }
 
-    //Withdraw REST API
+    /// Withdraw REST API
     @PutMapping("/{id}/withdraw")
     public ResponseEntity<ClientsDto> withdraw(@PathVariable Long id,
                                                @RequestBody Map<String, Double> request) {
@@ -52,6 +53,13 @@ public class ClientsController {
         ClientsDto clientsDto = clientsService.withdraw(id, amount);
 
         return ResponseEntity.ok(clientsDto);
+
+    }
+
+    /// Get all clients REST API
+    @GetMapping
+    public ResponseEntity<List<ClientsDto>> getAllClients(){
+        return ResponseEntity.ok(clientsService.getAllClients());
 
     }
 

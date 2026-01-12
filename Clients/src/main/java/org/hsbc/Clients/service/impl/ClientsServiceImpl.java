@@ -7,12 +7,16 @@ import org.hsbc.Clients.repository.ClientsRepository;
 import org.hsbc.Clients.service.ClientsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ClientsServiceImpl implements ClientsService {
 
     ClientsRepository clientsRepository;
 
     public ClientsServiceImpl(ClientsRepository clientsRepository) {
+
         this.clientsRepository = clientsRepository;
     }
 
@@ -63,6 +67,18 @@ public class ClientsServiceImpl implements ClientsService {
 
         return ClientsMapper.mapToClientsDto(clients);
     }
+
+    @Override
+    public List<ClientsDto> getAllClients() {
+
+        List<Clients> clients = clientsRepository.findAll();
+
+        return clients.stream()
+                .map(client -> ClientsMapper.mapToClientsDto(client))
+                .collect(Collectors.toList());
+
+
+                    }
 
 
 }
